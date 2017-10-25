@@ -1,4 +1,4 @@
-from tkinter import Tk, Label, Entry, N, S, E, W
+from tkinter import Tk, Label, Button, Entry, N, S, E, W
 
 class MainView(Tk):
     class Constants:
@@ -14,8 +14,9 @@ class MainView(Tk):
         convert_text = "Convertir"
         separator_text = "▶"
 
-    def __init__(self):
+    def __init__(self, convert_handler = None):
         super().__init__()
+        self.__convert_handler = convert_handler
         self.title(self.Constants.title)
         self.maxsize(width=self.Constants.width, height=self.Constants.heigth)
         self.minsize(width=self.Constants.width, height=self.Constants.heigth)
@@ -34,3 +35,30 @@ class MainView(Tk):
         currency_name_label = Label(self)
         currency_name_label.configure(text = "USD")
         currency_name_label.grid(row = 0, column = 0, sticky = self.Constants.left)
+
+        result_name_label = Label(self)
+        result_name_label.configure(text="MXN")
+        result_name_label.grid(row=0, column=2, sticky=self.Constants.left)
+
+        separator_label = Label(self)
+        separator_label.configure(text= self.Constants.separator_text)
+        separator_label.grid(row=1, column=1, sticky=self.Constants.center)
+
+        self.__result_label = Label(self)
+        self.__result_label.configure(text="0")
+        self.__result_label.grid(row=1, column=2, sticky=self.Constants.left)
+
+        self.__convert_button = Button(self)
+        self.__convert_button.configure(text = self.Constants.convert_text)
+        self.__convert_button.grid(row=2, column=2, sticky=self.Constants.center)
+        self.__convert_button.bind(self.Constants.event, self.__did_tap_convert)
+
+    def __did_tap_convert(self, event):
+        if self.__convert_handler is None:
+            return
+        self.__convert_handler("USD", "MXN", 10)
+
+
+
+
+
