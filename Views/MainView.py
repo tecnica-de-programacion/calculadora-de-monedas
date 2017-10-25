@@ -53,12 +53,33 @@ class MainView(Tk):
         self.__convert_button.grid(row=2, column=2, sticky=self.Constants.center)
         self.__convert_button.bind(self.Constants.event, self.__did_tap_convert)
 
+        vcmd = (self.register(self.__checkNumberOnly), '%d', '%P')
+        self.__currency_input = Entry(self, validate="key", validatecommand = vcmd)
+        self.__currency_input.grid(row=1, column=0, sticky=self.Constants.center)
+
     def __did_tap_convert(self, event):
         if self.__convert_handler is None:
             return
-        self.__convert_handler("USD", "MXN", 10)
+        try:
+            ammount_to_convert = float(self.__currency_input.get())
+        except ValueError:
+            return
+        else:
+            self.__convert_handler("USD", "MXN", ammount_to_convert)
+
+    def update_result(self, text):
+        self.__result_label.configure(text=text)
 
 
+    def __checkNumberOnly(self, action, value_if_allowed):
+        if action != '1':
+            return True
+        try:
+            float(value_if_allowed)
+        except ValueError:
+            return False
+        else:
+            return True
 
 
 
