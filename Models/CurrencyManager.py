@@ -1,4 +1,5 @@
 from urllib import request
+from urllib.error import URLError
 import json
 from Models.Currency import Currency
 
@@ -8,8 +9,12 @@ class CurrencyManager():
 
     @classmethod
     def get_currency(cls, currency_name):
-        with request.urlopen(cls.Constants.base_url + currency_name) as response:
-            data = response.read().decode()
-
+        try:
+            with request.urlopen(cls.Constants.base_url + currency_name) as response:
+                data = response.read().decode()
+                json_data = json.loads(data)
+                return Currency('MXN', json_data)
+        except URLError:
+            return None
 
 

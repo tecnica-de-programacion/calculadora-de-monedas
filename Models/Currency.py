@@ -1,11 +1,14 @@
+
 class Currency:
-    def __init__(self, name, rate):
+    def __init__(self, name, data):
+        self.__rates = data['rates']
+        self.__date = data['date']
         self.__name = name
-        self.__rate = rate
 
     @property
     def name(self):
         return self.__name
 
     def get_convertion(self, ammount):
-        return ammount * self.__rate
+        convert_value = self.__rates[self.__name]
+        return ammount * convert_value
