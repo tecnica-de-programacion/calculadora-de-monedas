@@ -1,4 +1,4 @@
-from tkinter import Tk, Label, Button, Entry, N, S, E, W, OptionMenu
+from tkinter import Tk, Label, Button, Entry, N, S, E, W, OptionMenu, StringVar
 
 class MainView(Tk):
     class Constants:
@@ -13,6 +13,8 @@ class MainView(Tk):
 
         convert_text = "Convertir"
         separator_text = "▶"
+
+        country_list = ["MXN", "USD", "EUR"]
 
     def __init__(self, convert_handler = None):
         super().__init__()
@@ -32,9 +34,9 @@ class MainView(Tk):
         self.grid_columnconfigure(1, minsize = self.Constants.separator_width)
 
     def __configure_UI(self):
-        currency_name_label = Label(self)
-        currency_name_label.configure(text = "USD")
-        currency_name_label.grid(row = 0, column = 0, sticky = self.Constants.left)
+        self.from_var = StringVar()
+        menu_from_currency = OptionMenu(self, self.from_var, *self.Constants.country_list)
+        menu_from_currency.grid(row = 0, column = 0, sticky = self.Constants.left)
 
         result_name_label = Label(self)
         result_name_label.configure(text="MXN")
@@ -65,7 +67,7 @@ class MainView(Tk):
         except ValueError:
             return
         else:
-            self.__convert_handler("USD", "EUR", ammount_to_convert)
+            self.__convert_handler(str(self.from_var.get()), "EUR", ammount_to_convert)
 
     def update_result(self, text):
         self.__result_label.configure(text = text)
