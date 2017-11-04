@@ -1,4 +1,4 @@
-from tkinter import Tk, Label, Button, Entry, N, S, E, W
+from tkinter import Tk, Label, Button, Entry, N, S, E, W, OptionMenu, StringVar
 
 class MainView(Tk):
     class Constants:
@@ -10,6 +10,8 @@ class MainView(Tk):
         center = N + S + E + W
         left = W
         event = "<Button-1>"
+        initial_currency = "USD"
+        target_currency = "MXN"
 
         convert_text = "Convertir"
         separator_text = "▶"
@@ -32,13 +34,15 @@ class MainView(Tk):
         self.grid_columnconfigure(1, minsize=self.Constants.separator_width)
 
     def __configure_UI(self):
-        currency_name_label = Label(self)
-        currency_name_label.configure(text = "USD")
-        currency_name_label.grid(row = 0, column = 0, sticky = self.Constants.left)
+        currency_initial = StringVar(self)
+        currency_initial.set(self.Constants.initial_currency)
+        currency_menu_initial = OptionMenu(self, currency_initial, "MXN", "otro")
+        currency_menu_initial.grid(row = 0, column = 0, sticky = self.Constants.left)
 
-        result_name_label = Label(self)
-        result_name_label.configure(text="MXN")
-        result_name_label.grid(row=0, column=2, sticky=self.Constants.left)
+        currency_target = StringVar(self)
+        currency_target.set(self.Constants.target_currency)
+        currency_menu_target = OptionMenu(self, currency_target, "USD", "otro")
+        currency_menu_target.grid(row=0, column=2, sticky=self.Constants.left)
 
         separator_label = Label(self)
         separator_label.configure(text= self.Constants.separator_text)
