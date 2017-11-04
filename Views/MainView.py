@@ -10,7 +10,6 @@ class MainView(Tk):
         center = N + S + E + W
         left = W
         event = "<Button-1>"
-
         convert_text = "Convertir"
         separator_text = "▶"
 
