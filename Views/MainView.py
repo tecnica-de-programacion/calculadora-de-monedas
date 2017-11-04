@@ -34,13 +34,13 @@ class MainView(Tk):
         self.grid_columnconfigure(1, minsize = self.Constants.separator_width)
 
     def __configure_UI(self):
-        self.from_var = StringVar()
-        menu_from_currency = OptionMenu(self, self.from_var, *self.Constants.country_list)
+        self.from_currency = StringVar()
+        menu_from_currency = OptionMenu(self, self.from_currency, *self.Constants.country_list)
         menu_from_currency.grid(row = 0, column = 0, sticky = self.Constants.left)
 
-        result_name_label = Label(self)
-        result_name_label.configure(text="MXN")
-        result_name_label.grid(row = 0, column = 2, sticky = self.Constants.left)
+        self.to_currency = StringVar()
+        menu_to_currency = OptionMenu(self, self.to_currency, *self.Constants.country_list)
+        menu_to_currency.grid(row = 0, column = 1, sticky = self.Constants.left)
 
         separator_label = Label(self)
         separator_label.configure(text = self.Constants.separator_text)
@@ -67,7 +67,7 @@ class MainView(Tk):
         except ValueError:
             return
         else:
-            self.__convert_handler(str(self.from_var.get()), "EUR", ammount_to_convert)
+            self.__convert_handler(str(self.from_currency.get()), str(self.to_currency.get()), ammount_to_convert)
 
     def update_result(self, text):
         self.__result_label.configure(text = text)
