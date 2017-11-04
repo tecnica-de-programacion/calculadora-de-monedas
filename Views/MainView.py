@@ -1,4 +1,5 @@
 from tkinter import Tk, Label, Button, Entry, N, S, E, W, OptionMenu, StringVar
+from Models.CurrencyManager import Currency
 
 class MainView(Tk):
     class Constants:
@@ -12,18 +13,20 @@ class MainView(Tk):
         event = "<Button-1>"
         initial_currency = "USD"
         target_currency = "MXN"
-
         convert_text = "Convertir"
         separator_text = "▶"
 
-    def __init__(self, convert_handler = None):
+    def __init__(self, convert_handler = None, menu = None):
         super().__init__()
         self.__convert_handler = convert_handler
+        self.__menu = menu
+        self.__menu.insert(0, self.Constants.initial_currency)
         self.title(self.Constants.title)
         self.maxsize(width=self.Constants.width, height=self.Constants.heigth)
         self.minsize(width=self.Constants.width, height=self.Constants.heigth)
         self.__configure_grid()
         self.__configure_UI()
+
 
     def __configure_grid(self):
         self.grid_rowconfigure(0, weight=True)
@@ -35,13 +38,13 @@ class MainView(Tk):
 
     def __configure_UI(self):
         currency_initial = StringVar(self)
-        currency_initial.set(self.Constants.initial_currency)
-        currency_menu_initial = OptionMenu(self, currency_initial, "MXN", "otro")
+        currency_initial.set(self.__menu[0])
+        currency_menu_initial = OptionMenu(self, currency_initial, *self.__menu)
         currency_menu_initial.grid(row = 0, column = 0, sticky = self.Constants.left)
 
         currency_target = StringVar(self)
-        currency_target.set(self.Constants.target_currency)
-        currency_menu_target = OptionMenu(self, currency_target, "USD", "otro")
+        currency_target.set(self.__menu[0])
+        currency_menu_target = OptionMenu(self, currency_target, *self.__menu)
         currency_menu_target.grid(row=0, column=2, sticky=self.Constants.left)
 
         separator_label = Label(self)

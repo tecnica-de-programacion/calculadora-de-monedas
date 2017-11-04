@@ -12,9 +12,13 @@ class CurrencyManager():
             with request.urlopen(cls.Constants.base_url + currency_name) as response:
                 data = response.read().decode()
                 json_data = json.loads(data)
-                return Currency(json_data)
+                currency = Currency(json_data)
+                return currency
         except Exception as error:
             return None
+
+
+
 
 
 

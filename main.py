@@ -3,8 +3,9 @@ from Models.CurrencyManager import CurrencyManager
 
 class MainApp():
     def __init__(self):
-        self.__master = MainView(convert_handler = self.__convert)
-        self.__currency = CurrencyManager.get_currency("EUR")
+        self.__currency = CurrencyManager.get_currency("USD")
+        self.__menu = self.__currency.rates
+        self.__master = MainView(convert_handler=self.__convert, menu=self.__menu)
 
     def run(self):
         self.__master.mainloop()
