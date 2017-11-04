@@ -1,9 +1,9 @@
-from tkinter import Tk, Label, Button, Entry, N, S, E, W
+from tkinter import Tk, Label, Button, Entry, N, S, E, W, OptionMenu, StringVar
 
 class MainView(Tk):
     class Constants:
         title = "Cambio de Moneda"
-        heigth = 100
+        heigth = 200
         width = 550
         input_width = 250
         separator_width = 50
@@ -32,10 +32,6 @@ class MainView(Tk):
         self.grid_columnconfigure(1, minsize=self.Constants.separator_width)
 
     def __configure_UI(self):
-        currency_name_label = Label(self)
-        currency_name_label.configure(text = "USD")
-        currency_name_label.grid(row = 0, column = 0, sticky = self.Constants.left)
-
         result_name_label = Label(self)
         result_name_label.configure(text="MXN")
         result_name_label.grid(row=0, column=2, sticky=self.Constants.left)
@@ -56,6 +52,15 @@ class MainView(Tk):
         vcmd = (self.register(self.__checkNumberOnly), '%d', '%P')
         self.__currency_input = Entry(self, validate="key", validatecommand = vcmd)
         self.__currency_input.grid(row=1, column=0, sticky=self.Constants.center)
+
+        self.__monedas = ['AUD', 'BGN', 'BRL', 'CAD', 'CHF', 'CNY', 'CZK', 'DKK', 'GBP', 'HKD', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JPY', 'KRW', 'MYR', 'NOK', 'NZD', 'PHP', 'PLN', 'RON', 'RUB', 'SEK', 'SGD', 'THB', 'TRY', 'USD', 'ZAR', 'EUR']
+        self.__monedas_string = StringVar(self)
+        self.__monedas_string.set('Selecciona una moneda')
+        self.__menu = OptionMenu(self, self.__monedas_string, *self.__monedas)
+        self.__menu.grid(row=0, column=0, sticky=self.Constants.left)
+
+
+
 
     def __did_tap_convert(self, event):
         if self.__convert_handler is None:
