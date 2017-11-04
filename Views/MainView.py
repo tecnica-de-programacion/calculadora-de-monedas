@@ -68,12 +68,12 @@ class MainView(Tk):
         self.from_currency = StringVar()
         menu_from_currency = OptionMenu(self, self.from_currency, *self.Constants.country_list)
         menu_from_currency.grid(row = 0, column = 0, sticky = self.Constants.left)
-        self.from_currency.set("USD")
+        self.from_currency.set(self.Constants.country_list[30])
 
         self.to_currency = StringVar()
         menu_to_currency = OptionMenu(self, self.to_currency, *self.Constants.country_list)
         menu_to_currency.grid(row = 0, column = 1, sticky = self.Constants.left)
-        self.to_currency.set("MXN")
+        self.to_currency.set(self.Constants.country_list[18])
 
         separator_label = Label(self)
         separator_label.configure(text = self.Constants.separator_text)
