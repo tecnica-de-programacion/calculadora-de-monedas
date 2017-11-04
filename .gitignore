@@ -1,7 +1,7 @@
 
 # Created by https://www.gitignore.io/api/macos,python,pycharm
 
-###.idea ###
+### .idea ###
 
 ### macOS ###
 *.DS_Store
