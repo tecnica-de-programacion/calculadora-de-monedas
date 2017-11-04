@@ -67,25 +67,25 @@ class MainView(Tk):
     def __configure_UI(self):
         self.from_currency = StringVar()
         menu_from_currency = OptionMenu(self, self.from_currency, *self.Constants.country_list)
-        menu_from_currency.grid(row = 0, column = 0, sticky = self.Constants.left)
         self.from_currency.set(self.Constants.country_list[30])
+        menu_from_currency.grid(row = 0, column = 0, sticky = self.Constants.center)
 
         self.to_currency = StringVar()
         menu_to_currency = OptionMenu(self, self.to_currency, *self.Constants.country_list)
-        menu_to_currency.grid(row = 0, column = 1, sticky = self.Constants.left)
         self.to_currency.set(self.Constants.country_list[18])
+        menu_to_currency.grid(row = 0, column = 2, sticky = self.Constants.center)
 
         separator_label = Label(self)
         separator_label.configure(text = self.Constants.separator_text)
         separator_label.grid(row = 1, column = 1, sticky = self.Constants.center)
 
         self.__result_label = Label(self)
-        self.__result_label.configure(text="0")
-        self.__result_label.grid(row = 1, column = 2, sticky = self.Constants.left)
+        self.__result_label.configure(text = "0")
+        self.__result_label.grid(row = 1, column = 2, sticky = self.Constants.center)
 
         self.__convert_button = Button(self)
         self.__convert_button.configure(text = self.Constants.convert_text)
-        self.__convert_button.grid(row = 2, column = 2, sticky = self.Constants.center)
+        self.__convert_button.grid(row = 2, column = 1, sticky = self.Constants.center)
         self.__convert_button.bind(self.Constants.event, self.__did_tap_convert)
 
         vcmd = (self.register(self.__checkNumberOnly), '%d', '%P')
