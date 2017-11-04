@@ -5,7 +5,7 @@ class MainApp():
     def __init__(self):
         self.__currency = CurrencyManager.get_currency("USD")
         self.__menu = self.__currency.rates
-        self.__master = MainView(convert_handler=self.__convert, menu=self.__menu)
+        self.__master = MainView(convert_handler = self.__convert, menu=self.__menu)
 
     def run(self):
         self.__master.mainloop()
