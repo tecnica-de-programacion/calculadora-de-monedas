@@ -61,8 +61,8 @@ class MainView(Tk):
         self.grid_rowconfigure(1, weight = True)
         self.grid_rowconfigure(2, weight = True)
         self.grid_columnconfigure(0, minsize = self.Constants.input_width)
-        self.grid_columnconfigure(2, minsize = self.Constants.input_width)
         self.grid_columnconfigure(1, minsize = self.Constants.separator_width)
+        self.grid_columnconfigure(2, minsize = self.Constants.input_width)
 
     def __configure_UI(self):
         self.from_currency = StringVar()
