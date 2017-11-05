@@ -8,5 +8,11 @@ class CurrencyManager():
 
     @classmethod
     def get_currency(cls, currency_name):
-        with request.urlopen(cls.Constants.base_url + currency_name) as response:
-            data = response.read().decode()
+        try:
+            with request.urlopen(cls.Constants.base_url + currency_name) as response:
+                data = response.read().decode()
+                data_json = json.loads(data)
+                currency = Currency(data_json)
+                return currency
+        except Exception as error:
+            return None
