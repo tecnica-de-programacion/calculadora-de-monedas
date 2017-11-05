@@ -24,6 +24,12 @@ class MainView(Tk):
         self.__configure_grid()
         self.__configure_UI()
 
+    def get_selection_currency (self, selec):
+        self.currency_name = selec
+
+    def get_selection_result (self, selec):
+        self.result_name = selec
+
     def __configure_grid(self):
         self.grid_rowconfigure(0, weight=True)
         self.grid_rowconfigure(1, weight=True)
@@ -33,14 +39,15 @@ class MainView(Tk):
         self.grid_columnconfigure(1, minsize=self.Constants.separator_width)
 
     def __configure_UI(self):
-        currency_name = StringVar()
+        currency_name = StringVar(self)
         currency_name.set(self.Constants.currency_type[0])
-        currency_name_menu = OptionMenu(self, currency_name, *self.Constants.currency_type)
+        currency_name_menu = OptionMenu(self, currency_name, *self.Constants.currency_type, command= self.get_selection_currency)
         currency_name_menu.grid(row = 0, column = 0, sticky = self.Constants.left)
+
 
         result_name = StringVar()
         result_name.set(self.Constants.currency_type[0])
-        result_name_menu = OptionMenu(self, result_name, *self.Constants.currency_type)
+        result_name_menu = OptionMenu(self, result_name, *self.Constants.currency_type, command= self.get_selection_result)
         result_name_menu.grid(row=0, column=2, sticky=self.Constants.left)
 
         separator_label = Label(self)
@@ -68,7 +75,7 @@ class MainView(Tk):
         except ValueError:
             return
         else:
-            self.__convert_handler("USD", "MXN", ammount_to_convert)
+            self.__convert_handler(str(self.currency_name), str(self.result_name), ammount_to_convert)
 
     def update_result(self, text):
         self.__result_label.configure(text=text)
