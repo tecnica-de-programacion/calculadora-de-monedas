@@ -36,11 +36,11 @@ class MainView(Tk):
         self.grid_columnconfigure(1, minsize=self.Constants.separator_width)
 
     def __configure_UI(self):
-        from_currency_menu = MenuButton(self, 0, 0, self.Constants.from_default)
-        self.__from_currency = from_currency_menu.currency_name()
+        self.__from_currency_menu = MenuButton(self, 0, 0, self.Constants.from_default)
+        #self.__from_currency = from_currency_menu.currency_name()
 
-        to_currency_menu = MenuButton(self, 0, 2, self.Constants.to_default)
-        self.__to_currency = to_currency_menu.currency_name()
+        self.__to_currency_menu = MenuButton(self, 0, 2, self.Constants.to_default)
+        #self.__to_currency = to_currency_menu.currency_name()
 
         separator_label = Label(self)
         separator_label.configure(text= self.Constants.separator_text)
@@ -67,7 +67,13 @@ class MainView(Tk):
         except ValueError:
             return
         else:
-            self.__convert_handler(self.__from_currency, self.__to_currency, ammount_to_convert)
+            from_currency = self.update_currency(self.__from_currency_menu)
+            to_currency = self.update_currency(self.__to_currency_menu)
+            self.__convert_handler(from_currency, to_currency, ammount_to_convert)
+
+    def update_currency(self, currency):
+        name_currency = currency.currency_name()
+        return name_currency
 
     def update_result(self, text):
         self.__result_label.configure(text=text)
