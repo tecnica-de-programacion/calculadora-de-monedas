@@ -1,3 +1,5 @@
+
+
 class Currency:
     def __init__(self, data_dictionary):
         self.__name = data_dictionary["base"]
