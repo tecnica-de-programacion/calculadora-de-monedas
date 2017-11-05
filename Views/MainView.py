@@ -1,4 +1,4 @@
-from tkinter import Tk, Label, Button, Entry, N, S, E, W
+from tkinter import Tk, Label, Button, Entry, StringVar, OptionMenu, N, S, E, W
 
 class MainView(Tk):
     class Constants:
@@ -13,6 +13,12 @@ class MainView(Tk):
 
         convert_text = "Convertir"
         separator_text = "▶"
+        currency_options = ["AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "GBP", "HKD", "HRK", "HUF", "IDR",
+                            "ILS", "INR", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "RUB", "SEK",
+                            "SGD", "THB", "TRY", "ZAR", "EUR"]
+
+        currency_1 = True
+        currency_2 = True
 
     def __init__(self, convert_handler = None):
         super().__init__()
@@ -32,13 +38,15 @@ class MainView(Tk):
         self.grid_columnconfigure(1, minsize=self.Constants.separator_width)
 
     def __configure_UI(self):
-        currency_name_label = Label(self)
-        currency_name_label.configure(text = "USD")
-        currency_name_label.grid(row = 0, column = 0, sticky = self.Constants.left)
+        self.__currency_menu = StringVar(self)
+        self.__currency_menu.set("Currency 1")
+        self.__currency_name_menu = OptionMenu(self, self.__currency_menu, *self.Constants.currency_options)
+        self.__currency_name_menu.grid(row=0, column=0, sticky=self.Constants.left)
 
-        result_name_label = Label(self)
-        result_name_label.configure(text="MXN")
-        result_name_label.grid(row=0, column=2, sticky=self.Constants.left)
+        self.__result_menu = StringVar(self)
+        self.__result_menu.set("Currency 2")
+        self.__result_name_menu = OptionMenu(self, self.__result_menu, *self.Constants.currency_options)
+        self.__result_name_menu.grid(row=0, column=2, sticky=self.Constants.left)
 
         separator_label = Label(self)
         separator_label.configure(text= self.Constants.separator_text)
@@ -80,6 +88,3 @@ class MainView(Tk):
             return False
         else:
             return True
-
-
-

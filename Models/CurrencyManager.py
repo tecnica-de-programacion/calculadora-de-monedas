@@ -15,6 +15,3 @@ class CurrencyManager():
                 return Currency(json_data)
         except Exception as error:
             return None
-
-
-
