@@ -4,8 +4,6 @@ from Views.MenuButton import MenuButton
 class MainView(Tk):
     class Constants:
         title = "Cambio de Moneda"
-        button_width = 2
-        button_height = 1
         heigth = 100
         width = 550
         input_width = 250
@@ -17,12 +15,12 @@ class MainView(Tk):
 
         convert_text = "Convertir"
         separator_text = "▶"
-        menu_text = "▼"
+        from_default = "USD"
+        to_default = "MXN"
 
-    def __init__(self, convert_handler = None, menu_handler = None):
+    def __init__(self, convert_handler = None):
         super().__init__()
         self.__convert_handler = convert_handler
-        self.__menu_handler = menu_handler
         self.title(self.Constants.title)
         self.maxsize(width=self.Constants.width, height=self.Constants.heigth)
         self.minsize(width=self.Constants.width, height=self.Constants.heigth)
@@ -38,9 +36,11 @@ class MainView(Tk):
         self.grid_columnconfigure(1, minsize=self.Constants.separator_width)
 
     def __configure_UI(self):
-        currency_name_menu = MenuButton(self, 0, 0)
+        from_currency_menu = MenuButton(self, 0, 0, self.Constants.from_default)
+        self.__from_currency = from_currency_menu.currency_name()
 
-        result_name_label = MenuButton(self, 0, 2)
+        to_currency_menu = MenuButton(self, 0, 2, self.Constants.to_default)
+        self.__to_currency = to_currency_menu.currency_name()
 
         separator_label = Label(self)
         separator_label.configure(text= self.Constants.separator_text)
@@ -67,14 +67,7 @@ class MainView(Tk):
         except ValueError:
             return
         else:
-            self.__convert_handler("USD", "MXN", ammount_to_convert)
-
-    def __did_tap_menu(self, event):
-        if self.__menu_handler is None: return
-        list_menu = MenuButton(self)
-
-
-
+            self.__convert_handler(self.__from_currency, self.__to_currency, ammount_to_convert)
 
     def update_result(self, text):
         self.__result_label.configure(text=text)
