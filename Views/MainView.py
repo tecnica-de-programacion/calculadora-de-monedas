@@ -1,22 +1,28 @@
 from tkinter import Tk, Label, Button, Entry, N, S, E, W
+from Views.MenuButton import MenuButton
 
 class MainView(Tk):
     class Constants:
         title = "Cambio de Moneda"
+        button_width = 2
+        button_height = 1
         heigth = 100
         width = 550
         input_width = 250
         separator_width = 50
         center = N + S + E + W
         left = W
+        right = E
         event = "<Button-1>"
 
         convert_text = "Convertir"
         separator_text = "▶"
+        menu_text = "▼"
 
-    def __init__(self, convert_handler = None):
+    def __init__(self, convert_handler = None, menu_handler = None):
         super().__init__()
         self.__convert_handler = convert_handler
+        self.__menu_handler = menu_handler
         self.title(self.Constants.title)
         self.maxsize(width=self.Constants.width, height=self.Constants.heigth)
         self.minsize(width=self.Constants.width, height=self.Constants.heigth)
@@ -32,13 +38,9 @@ class MainView(Tk):
         self.grid_columnconfigure(1, minsize=self.Constants.separator_width)
 
     def __configure_UI(self):
-        currency_name_label = Label(self)
-        currency_name_label.configure(text = "USD")
-        currency_name_label.grid(row = 0, column = 0, sticky = self.Constants.left)
+        currency_name_menu = MenuButton(self, 0, 0)
 
-        result_name_label = Label(self)
-        result_name_label.configure(text="MXN")
-        result_name_label.grid(row=0, column=2, sticky=self.Constants.left)
+        result_name_label = MenuButton(self, 0, 2)
 
         separator_label = Label(self)
         separator_label.configure(text= self.Constants.separator_text)
@@ -67,9 +69,15 @@ class MainView(Tk):
         else:
             self.__convert_handler("USD", "MXN", ammount_to_convert)
 
+    def __did_tap_menu(self, event):
+        if self.__menu_handler is None: return
+        list_menu = MenuButton(self)
+
+
+
+
     def update_result(self, text):
         self.__result_label.configure(text=text)
-
 
     def __checkNumberOnly(self, action, value_if_allowed):
         if action != '1':
