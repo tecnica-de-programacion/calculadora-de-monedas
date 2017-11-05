@@ -23,6 +23,8 @@ class MainView(Tk):
         self.minsize(width=self.Constants.width, height=self.Constants.heigth)
         self.__configure_grid()
         self.__configure_UI()
+        self.currency_name = self.Constants.currency_type[0]
+        self.result_name = self.Constants.currency_type[0]
 
     def get_selection_currency (self, selec):
         self.currency_name = selec
