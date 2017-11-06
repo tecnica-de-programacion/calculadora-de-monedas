@@ -51,10 +51,6 @@ class MainView(Tk):
                                               "THB", "TRY", "USD", "ZAR", "EUR")
         initial_currency_options.grid(row = 0, column = 0, sticky = self.Constants.left)
 
-        #currency_name_label = Label(self)
-        #currency_name_label.configure(text = "USD")
-        #currency_name_label.grid(row = 0, column = 0, sticky = self.Constants.left)
-
         result_currency = StringVar(self)
         result_currency.set("MXN")
         result_currency_options = OptionMenu(self, result_currency, "AUD", "BGN",
@@ -65,10 +61,6 @@ class MainView(Tk):
                                               "PLN", "RON", "RUB", "SEK", "SGD",
                                               "THB", "TRY", "USD", "ZAR", "EUR")
         result_currency_options.grid(row=0, column=2, sticky=self.Constants.left)
-
-        #result_name_label = Label(self)
-        #result_name_label.configure(text="MXN")
-        #result_name_label.grid(row=0, column=2, sticky=self.Constants.left)
 
         separator_label = Label(self)
         separator_label.configure(text= self.Constants.separator_text)
