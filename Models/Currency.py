@@ -5,8 +5,8 @@ class Currency:
         self.__rates = json["rates"]
 
     @property
-    def name(self):
-        return self.__name
+    def rates(self):
+        return list(self.__rates.keys())
 
     def get_convertion(self, currency, ammount):
         convert_value = self.__rates.get(currency, None)
