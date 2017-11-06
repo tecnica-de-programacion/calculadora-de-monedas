@@ -1,7 +1,7 @@
 from tkinter import *
 from Models.Currency import Currency
 from Models.CurrencyManager import CurrencyManager
-from Views.MainView import MainView
+#from Views.MainView import MainView
 class ConfigureMenu(Tk):
     def __init__(self):
         self.__master=MainView()

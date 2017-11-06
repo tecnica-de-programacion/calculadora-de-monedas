@@ -8,6 +8,7 @@ class CurrencyManager():
 
     @classmethod
     def get_currency(cls, currency_name):
+
         try:
             with urllib.request.urlopen(cls.Constats.base_url + currency_name) as response:
                 data = response.read().decode()
