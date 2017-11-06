@@ -12,7 +12,6 @@ class CurrencyManager():
             with request.urlopen(cls.Constants.base_url + currency_name) as response:
                 data = response.read().decode()
                 data_dictionary = json.loads(data)
-                print(data_dictionary)
                 return Currency(data_dictionary)
         except Exception:
             print('The calculator is not going to work, invalid URL inserted or non-available currency.')
