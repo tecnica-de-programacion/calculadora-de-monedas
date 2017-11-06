@@ -72,7 +72,14 @@ class MainView(Tk):
         except ValueError:
             return
         else:
-            self.__convert_handler(self.Constants.currency_1.get(), self.Constants.currency_2.get(), ammount_to_convert)
+            if self.Constants.currency_1.get()=="Currency 1":
+                self.update_result("Without kind of currency 1")
+            elif self.Constants.currency_2.get()=="Currency 2":
+                self.update_result("Without kind of currency 2")
+            elif self.Constants.currency_1.get() == self.Constants.currency_2.get():
+                self.update_result(str(ammount_to_convert))
+            else:
+                self.__convert_handler(self.Constants.currency_1.get(), self.Constants.currency_2.get(), ammount_to_convert)
 
     def update_result(self, text):
         self.__result_label.configure(text=text)
