@@ -1,4 +1,6 @@
 from tkinter import Tk, Label, Button, Entry, N, S, E, W
+from Views.menu import ConfigureMenu
+from Models.CurrencyManager import CurrencyManager
 
 class MainView(Tk):
     class Constants:
@@ -18,40 +20,47 @@ class MainView(Tk):
         super().__init__()
         self.__convert_handler = convert_handler
         self.title(self.Constants.title)
-        self.maxsize(width=self.Constants.width, height=self.Constants.heigth)
+        #self.maxsize(width=self.Constants.width, height=self.Constants.heigth)
         self.minsize(width=self.Constants.width, height=self.Constants.heigth)
         self.__configure_grid()
         self.__configure_UI()
+        self.__menu = ConfigureMenu()
 
     def __configure_grid(self):
         self.grid_rowconfigure(0, weight=True)
         self.grid_rowconfigure(1, weight=True)
         self.grid_rowconfigure(2, weight=True)
         self.grid_columnconfigure(0, minsize=self.Constants.input_width)
-        self.grid_columnconfigure(2, minsize=self.Constants.input_width)
+        self.grid_columnconfigure(3, minsize=self.Constants.input_width)
+        self.grid_columnconfigure(2, minsize=self.Constants.separator_width)
         self.grid_columnconfigure(1, minsize=self.Constants.separator_width)
 
-    def __configure_UI(self):
+    def __configure_UI(self, selection):
         currency_name_label = Label(self)
-        currency_name_label.configure(text = "USD")
+        currency_name_label.configure(text = selection)
         currency_name_label.grid(row = 0, column = 0, sticky = self.Constants.left)
 
         result_name_label = Label(self)
         result_name_label.configure(text="MXN")
-        result_name_label.grid(row=0, column=2, sticky=self.Constants.left)
+        result_name_label.grid(row=0, column=3, sticky=self.Constants.left)
 
         separator_label = Label(self)
         separator_label.configure(text= self.Constants.separator_text)
-        separator_label.grid(row=1, column=1, sticky=self.Constants.center)
+        separator_label.grid(row=1, column=2, sticky=self.Constants.center)
 
         self.__result_label = Label(self)
         self.__result_label.configure(text="0")
-        self.__result_label.grid(row=1, column=2, sticky=self.Constants.left)
+        self.__result_label.grid(row=1, column=3, sticky=self.Constants.left)
 
         self.__convert_button = Button(self)
         self.__convert_button.configure(text = self.Constants.convert_text)
-        self.__convert_button.grid(row=2, column=2, sticky=self.Constants.center)
+        self.__convert_button.grid(row=2, column=3, sticky=self.Constants.center)
         self.__convert_button.bind(self.Constants.event, self.__did_tap_convert)
+
+        self.__convertion_menu =Button(self,command = self.__menu())
+        self.__convertion_menu.configure(text= "menu")
+        self.__convertion_menu.grid(row= 1, column = 1,sticky=self.Constants.center )
+        #self.__convertion_menu.bind(self.Constants.event, self.__menu_configure)
 
         vcmd = (self.register(self.__checkNumberOnly), '%d', '%P')
         self.__currency_input = Entry(self, validate="key", validatecommand = vcmd)
@@ -80,6 +89,5 @@ class MainView(Tk):
             return False
         else:
             return True
-
 
 
