@@ -80,6 +80,3 @@ class MainView(Tk):
             return False
         else:
             return True
-
-
-
