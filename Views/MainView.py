@@ -1,5 +1,5 @@
-from tkinter import Tk, Label, Button, Entry, N, S, E, W
-
+from tkinter import Tk, Label, Button, Entry, N, S, E, W,ttk
+from Models.CurrencyManager import CurrencyManager
 class MainView(Tk):
     class Constants:
         title = "Cambio de Moneda"
@@ -10,6 +10,8 @@ class MainView(Tk):
         center = N + S + E + W
         left = W
         event = "<Button-1>"
+        default_from_currency = "USD"
+        default_result_currency = "MXN"
 
         convert_text = "Convertir"
         separator_text = "▶"
@@ -32,13 +34,15 @@ class MainView(Tk):
         self.grid_columnconfigure(1, minsize=self.Constants.separator_width)
 
     def __configure_UI(self):
-        currency_name_label = Label(self)
-        currency_name_label.configure(text = "USD")
-        currency_name_label.grid(row = 0, column = 0, sticky = self.Constants.left)
+        self.currency_combo = ttk.Combobox(self)
+        self.currency_combo["values"] = CurrencyManager.make_list_of_currency(self.Constants.default_from_currency)
+        self.currency_combo.current(0)
+        self.currency_combo.grid(row = 0, column = 0, sticky = self.Constants.left)
 
-        result_name_label = Label(self)
-        result_name_label.configure(text="MXN")
-        result_name_label.grid(row=0, column=2, sticky=self.Constants.left)
+        self.result_currency_combo = ttk.Combobox(self)
+        self.result_currency_combo["values"] = CurrencyManager.make_list_of_currency(self.Constants.default_result_currency)
+        self.result_currency_combo.current(0)
+        self.result_currency_combo.grid(row=0, column=2, sticky=self.Constants.left)
 
         separator_label = Label(self)
         separator_label.configure(text= self.Constants.separator_text)
@@ -65,7 +69,7 @@ class MainView(Tk):
         except ValueError:
             return
         else:
-            self.__convert_handler("USD", "MXN", ammount_to_convert)
+            self.__convert_handler(self.currency_combo.get(),self.result_currency_combo.get(), ammount_to_convert)
 
     def update_result(self, text):
         self.__result_label.configure(text=text)
@@ -81,5 +85,5 @@ class MainView(Tk):
         else:
             return True
 
-
-
+    def get_from_currency(self):
+        return self.currency_combo.get()
