@@ -1,9 +1,9 @@
-from tkinter import Tk, Label, Button, Entry, N, S, E, W
+from tkinter import Tk, Label, Button, Entry, N, S, E, W, OptionMenu, StringVar
 
 class MainView(Tk):
     class Constants:
         title = "Cambio de Moneda"
-        heigth = 100
+        heigth = 200
         width = 550
         input_width = 250
         separator_width = 50
@@ -22,6 +22,8 @@ class MainView(Tk):
         self.minsize(width=self.Constants.width, height=self.Constants.heigth)
         self.__configure_grid()
         self.__configure_UI()
+        self.start_currency = "USD"
+        self.result_currency = "MXN"
 
     def __configure_grid(self):
         self.grid_rowconfigure(0, weight=True)
@@ -32,13 +34,19 @@ class MainView(Tk):
         self.grid_columnconfigure(1, minsize=self.Constants.separator_width)
 
     def __configure_UI(self):
-        currency_name_label = Label(self)
-        currency_name_label.configure(text = "USD")
-        currency_name_label.grid(row = 0, column = 0, sticky = self.Constants.left)
 
-        result_name_label = Label(self)
-        result_name_label.configure(text="MXN")
-        result_name_label.grid(row=0, column=2, sticky=self.Constants.left)
+        self.__names_list = ["USD","AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "GBP", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "RUB", "SEK", "SGD", "THB" ,"TRY" ,"ZAR", "EUR"]
+
+        self.start_string = StringVar(self)
+        self.start_string.set('Choose your starting currency')
+        self.menu_start = OptionMenu(self, self.start_string, *self.__names_list)
+        self.menu_start.grid(row=0, column=0, sticky=self.Constants.left)
+        print(self.start_string.get())
+
+        self.result_string = StringVar(self)
+        self.result_string.set('Choose your result currency')
+        self.menu_result = OptionMenu(self, self.result_string, *self.__names_list)
+        self.menu_result.grid(row=0, column=2, sticky=self.Constants.left)
 
         separator_label = Label(self)
         separator_label.configure(text= self.Constants.separator_text)
@@ -58,6 +66,9 @@ class MainView(Tk):
         self.__currency_input.grid(row=1, column=0, sticky=self.Constants.center)
 
     def __did_tap_convert(self, event):
+        self.start_currency = self.start_string.get()
+        self.result_currency = self.result_string.get()
+        print(self.start_currency, self.result_currency)
         if self.__convert_handler is None:
             return
         try:
@@ -65,7 +76,7 @@ class MainView(Tk):
         except ValueError:
             return
         else:
-            self.__convert_handler("USD", "MXN", ammount_to_convert)
+            self.__convert_handler(self.start_currency, self.result_currency, ammount_to_convert)
 
     def update_result(self, text):
         self.__result_label.configure(text=text)
