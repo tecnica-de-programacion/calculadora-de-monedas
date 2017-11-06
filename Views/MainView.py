@@ -14,13 +14,6 @@ class MainView(Tk):
         convert_text = "Convertir"
         separator_text = "▶"
 
-        currencies = [ "AUD", "BGN", "BRL","CAD", "CHF",
-                       "CNY", "CZK", "DKK", "GBP", "HKD",
-                       "HRK", "HUF", "IDR", "ILS", "INR",
-                       "JPY", "KRW", "MXN", "MYR", "NOK",
-                       "NZD", "PHP", "PLN", "RON", "RUB",
-                       "SEK", "SGD", "THB", "TRY", "USD", "ZAR", "EUR"]
-
 
     def __init__(self, convert_handler = None):
         super().__init__()
@@ -40,27 +33,27 @@ class MainView(Tk):
         self.grid_columnconfigure(1, minsize=self.Constants.separator_width)
 
     def __configure_UI(self):
-        initial_currency = StringVar(self)
-        initial_currency.set("USD")
-        initial_currency_options = OptionMenu(self, initial_currency, "AUD", "BGN",
+        self.initial_currency = StringVar(self)
+        self.initial_currency.set("USD")
+        self.initial_currency_options = OptionMenu(self, self.initial_currency, "AUD", "BGN",
                                               "BRL", "CAD", "CHF", "CNY", "CZK",
                                               "DKK", "GBP", "HKD", "HRK", "HUF",
                                               "IDR", "ILS", "INR", "JPY", "KRW",
                                               "MXN", "MYR", "NOK", "NZD", "PHP",
                                               "PLN", "RON", "RUB", "SEK", "SGD",
                                               "THB", "TRY", "USD", "ZAR", "EUR")
-        initial_currency_options.grid(row = 0, column = 0, sticky = self.Constants.left)
+        self.initial_currency_options.grid(row = 0, column = 0, sticky = self.Constants.left)
 
-        result_currency = StringVar(self)
-        result_currency.set("MXN")
-        result_currency_options = OptionMenu(self, result_currency, "AUD", "BGN",
+        self.result_currency = StringVar(self)
+        self.result_currency.set("MXN")
+        self.result_currency_options = OptionMenu(self, self.result_currency, "AUD", "BGN",
                                               "BRL", "CAD", "CHF", "CNY", "CZK",
                                               "DKK", "GBP", "HKD", "HRK", "HUF",
                                               "IDR", "ILS", "INR", "JPY", "KRW",
                                               "MXN", "MYR", "NOK", "NZD", "PHP",
                                               "PLN", "RON", "RUB", "SEK", "SGD",
                                               "THB", "TRY", "USD", "ZAR", "EUR")
-        result_currency_options.grid(row=0, column=2, sticky=self.Constants.left)
+        self.result_currency_options.grid(row=0, column=2, sticky=self.Constants.left)
 
         separator_label = Label(self)
         separator_label.configure(text= self.Constants.separator_text)
@@ -87,7 +80,7 @@ class MainView(Tk):
         except ValueError:
             return
         else:
-            self.__convert_handler("USD", "MXN", ammount_to_convert)
+            self.__convert_handler(self.initial_currency.get(), self.result_currency.get(), ammount_to_convert)
 
     def update_result(self, text):
         self.__result_label.configure(text=text)
