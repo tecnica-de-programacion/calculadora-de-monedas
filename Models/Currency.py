@@ -9,7 +9,11 @@ class Currency:
         return self.__name
 
     def get_convertion(self, currency, ammount):
+        print(self.__name)
+        print(currency)
         convert_value = self.__rates.get(currency, None)
-        if convert_value is None:
+        if self.__name == currency:
+            return 1
+        elif convert_value is None:
             return None
         return ammount * convert_value
