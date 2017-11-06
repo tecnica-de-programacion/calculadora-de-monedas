@@ -41,12 +41,12 @@ class MainView(Tk):
     def __configure_UI(self):
         self.origin_options = StringVar()
         self.origin_options.set(self.Constants.default_text)
-        currency_origin_menu = OptionMenu(self, self.origin_options, *self.__list)
+        currency_origin_menu = OptionMenu(self, self.origin_options, *self.__list, command = self.__change_origin_currency)
         currency_origin_menu.grid(row = 0, column = 0, sticky = self.Constants.left)
 
         self.converted_options = StringVar()
         self.converted_options.set(self.Constants.default_text)
-        currency_converted_menu = OptionMenu(self, self.converted_options, *self.__list)
+        currency_converted_menu = OptionMenu(self, self.converted_options, *self.__list, command = self.__change_converted_currency)
         currency_converted_menu.grid(row = 0, column = 2, sticky=self.Constants.left)
 
         separator_label = Label(self)
@@ -75,7 +75,13 @@ class MainView(Tk):
             return
         else:
             self.__convert_handler(self.Constants.origin_currency, self.Constants.converted_currency, ammount_to_convert)
-    
+
+    def __change_origin_currency(self, currency):
+        self.Constants.origin_currency = currency
+
+    def __change_converted_currency(self, currency):
+        self.Constants.converted_currency = currency
+
     def update_result(self, text):
         self.__result_label.configure(text = text)
 
