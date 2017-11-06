@@ -6,9 +6,10 @@ class Currency:
         self.__name = name
 
     @property
-    def name(self):
+    def get_name(self):
         return self.__name
 
     def get_convertion(self, ammount):
         convert_value = self.__rates[self.__name]
         return ammount * convert_value
+

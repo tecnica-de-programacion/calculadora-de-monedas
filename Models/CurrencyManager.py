@@ -8,12 +8,13 @@ class CurrencyManager():
         base_url = "http://api.fixer.io/latest?base="
 
     @classmethod
-    def get_currency(cls, currency_name):
+    def get_currency(cls, initial_currency_name, final_currency_name):
         try:
-            with request.urlopen(cls.Constants.base_url + currency_name) as response:
+            with request.urlopen(cls.Constants.base_url + initial_currency_name) as response:
                 data = response.read().decode()
                 json_data = json.loads(data)
-                return Currency('MXN', json_data)
+                return Currency(final_currency_name, json_data)
+
         except URLError:
             return None
 
