@@ -17,11 +17,13 @@ class MainView(Tk):
         convert_text = "Convertir"
         separator_text = "▶"
 
-    def __init__(self, convert_handler = None):
+    def __init__(self, convert_handler = None, origin_currency = None, options = None):
         super().__init__()
-        self.__list = [20,30,40,50,60,70]
+        self.__options = options
 
         self.__convert_handler = convert_handler
+        self.__origin_currency = origin_currency
+
         self.title(self.Constants.title)
         self.maxsize(width=self.Constants.width, height=self.Constants.heigth)
         self.minsize(width=self.Constants.width, height=self.Constants.heigth)
@@ -39,12 +41,12 @@ class MainView(Tk):
     def __configure_UI(self):
         self.origin_options = StringVar()
         self.origin_options.set(self.Constants.origin_currency)
-        currency_origin_menu = OptionMenu(self, self.origin_options, *self.__list, command = self.__change_origin_currency)
+        currency_origin_menu = OptionMenu(self, self.origin_options, *self.__options, command = self.__change_origin_currency)
         currency_origin_menu.grid(row = 0, column = 0, sticky = self.Constants.left)
 
         self.converted_options = StringVar()
         self.converted_options.set(self.Constants.converted_currency)
-        currency_converted_menu = OptionMenu(self, self.converted_options, *self.__list, command = self.__change_converted_currency)
+        currency_converted_menu = OptionMenu(self, self.converted_options, *self.__options, command = self.__change_converted_currency)
         currency_converted_menu.grid(row = 0, column = 2, sticky=self.Constants.left)
 
         separator_label = Label(self)
@@ -76,6 +78,7 @@ class MainView(Tk):
 
     def __change_origin_currency(self, currency):
         self.Constants.origin_currency = currency
+        self.__origin_currency(currency)
 
     def __change_converted_currency(self, currency):
         self.Constants.converted_currency = currency
