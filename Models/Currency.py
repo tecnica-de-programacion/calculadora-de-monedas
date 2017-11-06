@@ -8,6 +8,9 @@ class Currency:
     def name(self):
         return self.__name
 
+    def currency_names(self):
+        return self.__rates.keys()
+
     def get_convertion(self, currency, ammount):
         convert_value = self.__rates.get(currency, None)
         if convert_value is None:

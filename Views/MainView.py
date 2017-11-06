@@ -1,4 +1,5 @@
 from tkinter import Tk, Label, Button, Entry, N, S, E, W
+from Views.MenuButton import MenuButton
 
 class MainView(Tk):
     class Constants:
@@ -10,13 +11,15 @@ class MainView(Tk):
         center = N + S + E + W
         left = W
         event = "<Button-1>"
-
         convert_text = "Convertir"
         separator_text = "▶"
+        from_default = "USD"
+        to_default = "MXN"
 
-    def __init__(self, convert_handler = None):
+    def __init__(self, convert_handler = None, get_currency_names = None):
         super().__init__()
         self.__convert_handler = convert_handler
+        self.__get_currency_names = get_currency_names
         self.title(self.Constants.title)
         self.maxsize(width=self.Constants.width, height=self.Constants.heigth)
         self.minsize(width=self.Constants.width, height=self.Constants.heigth)
@@ -32,13 +35,9 @@ class MainView(Tk):
         self.grid_columnconfigure(1, minsize=self.Constants.separator_width)
 
     def __configure_UI(self):
-        currency_name_label = Label(self)
-        currency_name_label.configure(text = "USD")
-        currency_name_label.grid(row = 0, column = 0, sticky = self.Constants.left)
+        self.__from_currency_menu = MenuButton(self, 0, 0, self.Constants.from_default, self.__get_currency_names)
 
-        result_name_label = Label(self)
-        result_name_label.configure(text="MXN")
-        result_name_label.grid(row=0, column=2, sticky=self.Constants.left)
+        self.__to_currency_menu = MenuButton(self, 0, 2, self.Constants.to_default, self.__get_currency_names)
 
         separator_label = Label(self)
         separator_label.configure(text= self.Constants.separator_text)
@@ -65,11 +64,16 @@ class MainView(Tk):
         except ValueError:
             return
         else:
-            self.__convert_handler("USD", "MXN", ammount_to_convert)
+            from_currency = self.__update_currency(self.__from_currency_menu)
+            to_currency = self.__update_currency(self.__to_currency_menu)
+            self.__convert_handler(from_currency, to_currency, ammount_to_convert)
+
+    def __update_currency(self, currency):
+        name_currency = currency.currency_name()
+        return name_currency
 
     def update_result(self, text):
         self.__result_label.configure(text=text)
-
 
     def __checkNumberOnly(self, action, value_if_allowed):
         if action != '1':
