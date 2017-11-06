@@ -1,4 +1,6 @@
-from tkinter import Tk, Label, Button, Entry, N, S, E, W
+from tkinter import Tk, Label, Button, Entry, N, S, E, W, OptionMenu, StringVar
+from Models.currencies import Currencies
+
 
 class MainView(Tk):
     class Constants:
@@ -32,13 +34,17 @@ class MainView(Tk):
         self.grid_columnconfigure(1, minsize=self.Constants.separator_width)
 
     def __configure_UI(self):
-        currency_name_label = Label(self)
-        currency_name_label.configure(text = "USD")
-        currency_name_label.grid(row = 0, column = 0, sticky = self.Constants.left)
 
-        result_name_label = Label(self)
-        result_name_label.configure(text="MXN")
-        result_name_label.grid(row=0, column=2, sticky=self.Constants.left)
+        self.__currency_list = Currencies.currencies
+        self.__drop_var_from = StringVar()
+        self.__drop_var_from.set(Currencies.currencies[0])
+        self.__drop_menu_from = OptionMenu(self, self.__drop_var_from, *self.__currency_list)
+        self.__drop_menu_from.grid(column=0, row=0, sticky=self.Constants.center)
+
+        self.__drop_var_to = StringVar()
+        self.__drop_var_to.set(Currencies.currencies[1])
+        self.__drop_menu_to = OptionMenu(self, self.__drop_var_to, *self.__currency_list)
+        self.__drop_menu_to.grid(column=2, row=0, sticky=self.Constants.center)
 
         separator_label = Label(self)
         separator_label.configure(text= self.Constants.separator_text)
@@ -65,7 +71,7 @@ class MainView(Tk):
         except ValueError:
             return
         else:
-            self.__convert_handler("USD", "MXN", ammount_to_convert)
+            self.__convert_handler(self.__drop_var_from.get()[:3], self.__drop_var_to.get()[:3], ammount_to_convert)
 
     def update_result(self, text):
         self.__result_label.configure(text=text)
