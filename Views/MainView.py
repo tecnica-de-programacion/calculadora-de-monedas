@@ -36,15 +36,15 @@ class MainView(Tk):
     def __configure_UI(self):
 
         self.__currency_list = Currencies.currencies
-        self.drop_var_from = StringVar()
-        self.drop_var_from.set(Currencies.currencies[0])
-        self.drop_menu_from = OptionMenu(self, self.drop_var_from, *self.__currency_list)
-        self.drop_menu_from.grid(column=0, row=0, sticky=self.Constants.center)
+        self.__drop_var_from = StringVar()
+        self.__drop_var_from.set(Currencies.currencies[0])
+        self.__drop_menu_from = OptionMenu(self, self.__drop_var_from, *self.__currency_list)
+        self.__drop_menu_from.grid(column=0, row=0, sticky=self.Constants.center)
 
-        self.drop_var_to = StringVar()
-        self.drop_var_to.set(Currencies.currencies[1])
-        self.drop_menu_to = OptionMenu(self, self.drop_var_to, *self.__currency_list)
-        self.drop_menu_to.grid(column=2, row=0, sticky=self.Constants.center)
+        self.__drop_var_to = StringVar()
+        self.__drop_var_to.set(Currencies.currencies[1])
+        self.__drop_menu_to = OptionMenu(self, self.__drop_var_to, *self.__currency_list)
+        self.__drop_menu_to.grid(column=2, row=0, sticky=self.Constants.center)
 
         separator_label = Label(self)
         separator_label.configure(text= self.Constants.separator_text)
@@ -71,7 +71,7 @@ class MainView(Tk):
         except ValueError:
             return
         else:
-            self.__convert_handler(self.drop_var_from.get()[:3], self.drop_var_to.get()[:3], ammount_to_convert)
+            self.__convert_handler(self.__drop_var_from.get()[:3], self.__drop_var_to.get()[:3], ammount_to_convert)
 
     def update_result(self, text):
         self.__result_label.configure(text=text)
