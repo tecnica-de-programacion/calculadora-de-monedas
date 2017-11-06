@@ -10,7 +10,7 @@ class MainApp():
     def run(self):
         self.__master.mainloop()
 
-    def __convert(self, from_currency, to_currency, ammount):
+    def __convert(self, from_currency, to_currency, ammount, get_convertion):
         result = str(self.__currency.get_convertion(ammount))
         self.__master.update_result(result)
 
