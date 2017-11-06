@@ -10,14 +10,22 @@ class MainView(Tk):
         center = N + S + E + W
         left = W
         event = "<Button-1>"
-
         convert_text = "Convertir"
         separator_text = "▶"
+        initial_currency = 'MXN'
 
-    def __init__(self, convert_handler = None):
+
+    def __init__(self, convert_handler = None, menu=None):
         super().__init__()
         self.__convert_handler = convert_handler
         self.title(self.Constants.title)
+
+        self.__currency_initial = None
+        self.__currency_end = None
+        self.__currency = None
+        self.__menu = menu
+        self.__menu.insert(0, self.Constants.initial_currency)
+
         self.maxsize(width=self.Constants.width, height=self.Constants.heigth)
         self.minsize(width=self.Constants.width, height=self.Constants.heigth)
         self.__configure_grid()
@@ -70,7 +78,6 @@ class MainView(Tk):
     def update_result(self, text):
         self.__result_label.configure(text=text)
 
-
     def __checkNumberOnly(self, action, value_if_allowed):
         if action != '1':
             return True
@@ -80,6 +87,3 @@ class MainView(Tk):
             return False
         else:
             return True
-
-
-
