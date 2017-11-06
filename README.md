@@ -7,4 +7,4 @@ Bernardo Dominguez Pedroza - Tarea - Calculadora de monedas (Con todas las moned
 ![alt text](ReadmeAssets/Funcionamiento3.jpg "Funcionamiento 3")
 
 ## Gif de funcionamiento
-![alt text](ReadmeAssets/Funcionamiento.gif "Funcionamiento")
+![alt text](ReadmeAssets/FuncionamientoCalcu.gif "Funcionamiento")
