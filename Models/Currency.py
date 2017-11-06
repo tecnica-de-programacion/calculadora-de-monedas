@@ -1,5 +1,5 @@
 class Currency:
-    def __init__(self, __name, __rate):
+    def __init__(self, json):
         self.__name = json["base"]
         self.__date = json["date"]
         self.__rates = json["rates"]
@@ -8,7 +8,7 @@ class Currency:
     def name(self):
         return self.__name
 
-    def get_convertion(self, ammount):
+    def get_convertion(self, currency, ammount):
         convert_value = self.__rates.get(currency, None)
         if convert_value is None:
             return None

@@ -17,8 +17,8 @@ class MainView(Tk):
 
     def __init__(self, convert_handler = None):
         super().__init__()
-        self.origin_currency = 'EUR'
-        self.converted_currency = 'MXN'
+        self.origin_currency = "EUR"
+        self.converted_currency = "MXN"
         self.__convert_handler = convert_handler
         self.title(self.Constants.title)
         self.maxsize(width=self.Constants.width, height=self.Constants.heigth)
@@ -37,15 +37,15 @@ class MainView(Tk):
 
     def __configure_UI(self):
 
-        self.__currencys = ["AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "GBP", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "RUB", "SEK", "SGD", "THB" ,"TRY" ,"ZAR", "EUR"]
+        self.__currencys = ["AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK","EUR", "GBP", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "RUB", "SEK", "SGD", "THB" ,"TRY", "USD", "ZAR"]
         self.origin = StringVar(self)
         self.origin.set('Origin currency')
         self.converted = StringVar(self)
         self.converted.set('Converted currency')
 
-        self.menuO = OptionMenu(self, self.origin, self.__currencys)
+        self.menuO = OptionMenu(self, self.origin, *self.__currencys)
         self.menuO.grid(row=0, column=0, sticky=self.Constants.left)
-        self.menuC = OptionMenu(self, self.converted, self.__currencys)
+        self.menuC = OptionMenu(self, self.converted, *self.__currencys)
         self.menuC.grid(row=0, column=2, sticky=self.Constants.left)
 
         separator_label = Label(self)
@@ -62,10 +62,13 @@ class MainView(Tk):
         self.__convert_button.bind(self.Constants.event, self.__did_tap_convert)
 
         vcmd = (self.register(self.__checkNumberOnly), '%d', '%P')
-        self.__currency_input = Entry(self, validate="key", validatecommand = vcmd)
+        self.__currency_input = Entry(self, validate="key", validatecommand=vcmd)
         self.__currency_input.grid(row=1, column=0, sticky=self.Constants.center)
 
+
     def __did_tap_convert(self, event):
+        self.origin_currency = self.origin.get()
+        self.converted_currency = self.converted.get()
         if self.__convert_handler is None:
             return
         try:
@@ -73,7 +76,7 @@ class MainView(Tk):
         except ValueError:
             return
         else:
-            self.__convert_handler("USD", "MXN", ammount_to_convert)
+            self.__convert_handler(self.origin_currency, self.converted_currency, ammount_to_convert)
 
     def update_result(self, text):
         self.__result_label.configure(text=text)
