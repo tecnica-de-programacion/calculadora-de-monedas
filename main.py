@@ -1,6 +1,7 @@
 from Views.MainView import MainView
 from Models.CurrencyManager import CurrencyManager
 
+
 class MainApp():
     def __init__(self):
         self.__master = MainView(convert_handler = self.__convert)
@@ -12,6 +13,7 @@ class MainApp():
     def __convert(self, from_currency, to_currency, amount):
         result = str(self.__currency.get_convertion(from_currency, to_currency, amount))
         self.__master.update_result(result)
+
 
 if __name__ == "__main__":
     app = MainApp()

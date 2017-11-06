@@ -1,6 +1,7 @@
 from tkinter import Tk, Label, Button, Entry, N, S, E, W, OptionMenu, StringVar
 from Models.currencies import Currencies
 
+
 class MainView(Tk):
     class Constants:
         title = "Cambio de Moneda"
