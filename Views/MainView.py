@@ -77,7 +77,8 @@ class MainView(Tk):
         except ValueError:
             return
         else:
-            self.__convert_handler("USD", "MXN", ammount_to_convert)
+            self.__currency = CurrencyManager.get_currency(self.__currency_initial.get())
+            self.update_result(str(self.__currency.get_convertion(self.__currency_end.get(), ammount_to_convert)))
 
     def update_result(self, text):
         self.__result_label.configure(text=text)
