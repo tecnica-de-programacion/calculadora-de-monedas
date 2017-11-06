@@ -11,5 +11,5 @@ class Currency:
     def get_convertion(self, currency, ammount):
         convert_value = self.__rates.get(currency, None)
         if convert_value is None:
-            return None
+            return ammount
         return ammount * convert_value
