@@ -13,11 +13,8 @@ class Currency:
         convert_value = self.__rates.get(to_currency, None)
         if convert_value is None:
             return None
-        return (ammount /convert_value_dolar) * convert_value
-
-
-    def get_dolar_convertion(self, currency, ammount):
-        convert_value = self.__rates.get(currency, None)
-        if convert_value is None:
+        if from_currency == "USD":
+            return ammount * convert_value
+        if convert_value_dolar is None:
             return None
-        return ammount / convert_value
+        return (ammount /convert_value_dolar) * convert_value
