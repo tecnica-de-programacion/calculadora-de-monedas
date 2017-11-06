@@ -1,4 +1,4 @@
-from tkinter import Tk, Label, Button, Entry, N, S, E, W, OptionMenu
+from tkinter import Tk, Label, Button, Entry, N, S, E, W, OptionMenu, StringVar
 
 class MainView(Tk):
     class Constants:
@@ -11,6 +11,8 @@ class MainView(Tk):
         left = W
         event = "<Button-1>"
 
+        default_text = "Seleciona una opción"
+
         origin_currency = "USD"
         converted_currency = "MXN"
 
@@ -19,6 +21,8 @@ class MainView(Tk):
 
     def __init__(self, convert_handler = None):
         super().__init__()
+        self.__list = [20,30,40,50,60,70]
+
         self.__convert_handler = convert_handler
         self.title(self.Constants.title)
         self.maxsize(width=self.Constants.width, height=self.Constants.heigth)
@@ -35,13 +39,15 @@ class MainView(Tk):
         self.grid_columnconfigure(1, minsize=self.Constants.separator_width)
 
     def __configure_UI(self):
-        currency_name_label = Label(self)
-        currency_name_label.configure(text = "USD")
-        currency_name_label.grid(row = 0, column = 0, sticky = self.Constants.left)
+        self.origin_options = StringVar()
+        self.origin_options.set(self.Constants.default_text)
+        currency_origin_menu = OptionMenu(self, self.origin_options, *self.__list)
+        currency_origin_menu.grid(row = 0, column = 0, sticky = self.Constants.left)
 
-        result_name_label = Label(self)
-        result_name_label.configure(text = "MXN")
-        result_name_label.grid(row = 0, column = 2, sticky = self.Constants.left)
+        self.converted_options = StringVar()
+        self.converted_options.set(self.Constants.default_text)
+        currency_converted_menu = OptionMenu(self, self.converted_options, *self.__list)
+        currency_converted_menu.grid(row = 0, column = 2, sticky=self.Constants.left)
 
         separator_label = Label(self)
         separator_label.configure(text= self.Constants.separator_text)
@@ -69,7 +75,7 @@ class MainView(Tk):
             return
         else:
             self.__convert_handler(self.Constants.origin_currency, self.Constants.converted_currency, ammount_to_convert)
-
+    
     def update_result(self, text):
         self.__result_label.configure(text = text)
 
