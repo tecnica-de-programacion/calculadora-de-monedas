@@ -70,7 +70,7 @@ class MainView(Tk):
         except ValueError:
             return
         else:
-            self.__convert_handler("USD", "MXN", ammount_to_convert)
+            self.__convert_handler(self.drop_var_from.get()[:3], self.drop_var_to.get()[:3], ammount_to_convert)
 
     def update_result(self, text):
         self.__result_label.configure(text=text)
