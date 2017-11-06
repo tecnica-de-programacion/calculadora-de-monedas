@@ -11,8 +11,6 @@ class MainView(Tk):
         left = W
         event = "<Button-1>"
 
-        default_text = "Seleciona una opción"
-
         origin_currency = "USD"
         converted_currency = "MXN"
 
@@ -40,12 +38,12 @@ class MainView(Tk):
 
     def __configure_UI(self):
         self.origin_options = StringVar()
-        self.origin_options.set(self.Constants.default_text)
+        self.origin_options.set(self.Constants.origin_currency)
         currency_origin_menu = OptionMenu(self, self.origin_options, *self.__list, command = self.__change_origin_currency)
         currency_origin_menu.grid(row = 0, column = 0, sticky = self.Constants.left)
 
         self.converted_options = StringVar()
-        self.converted_options.set(self.Constants.default_text)
+        self.converted_options.set(self.Constants.converted_currency)
         currency_converted_menu = OptionMenu(self, self.converted_options, *self.__list, command = self.__change_converted_currency)
         currency_converted_menu.grid(row = 0, column = 2, sticky=self.Constants.left)
 
