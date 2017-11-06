@@ -40,11 +40,13 @@ class MainView(Tk):
         self.Constants.currency_1 = StringVar(self)
         self.Constants.currency_1.set("Currency 1")
         self.__currency_name_menu = OptionMenu(self, self.Constants.currency_1, *self.Constants.currency_options)
+        self.__currency_name_menu.configure(bg = "steelblue")
         self.__currency_name_menu.grid(row=0, column=0, sticky=self.Constants.left)
 
         self.Constants.currency_2 = StringVar(self)
         self.Constants.currency_2.set("Currency 2")
         self.__result_name_menu = OptionMenu(self, self.Constants.currency_2, *self.Constants.currency_options)
+        self.__result_name_menu.configure(bg="steelblue")
         self.__result_name_menu.grid(row=0, column=2, sticky=self.Constants.left)
 
         separator_label = Label(self)
@@ -56,8 +58,8 @@ class MainView(Tk):
         self.__result_label.grid(row=1, column=2, sticky=self.Constants.left)
 
         self.__convert_button = Button(self)
-        self.__convert_button.configure(text = self.Constants.convert_text)
-        self.__convert_button.grid(row=2, column=2, sticky=self.Constants.center)
+        self.__convert_button.configure(bg="lightslategray", text = self.Constants.convert_text)
+        self.__convert_button.grid(row=2, column=0,columnspan=3, sticky=self.Constants.center)
         self.__convert_button.bind(self.Constants.event, self.__did_tap_convert)
 
         vcmd = (self.register(self.__checkNumberOnly), '%d', '%P')
