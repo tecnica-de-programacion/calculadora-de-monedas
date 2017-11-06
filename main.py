@@ -10,8 +10,9 @@ class MainApp():
         self.__master.mainloop()
 
     def __convert(self, from_currency, to_currency, ammount):
-        result = str(self.__currency.get_convertion(to_currency, ammount))
+        result = str(self.__currency.get_convertion(from_currency, to_currency, ammount))
         self.__master.update_result(result)
+
 
 if __name__ == "__main__":
     app = MainApp()

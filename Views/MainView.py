@@ -13,10 +13,9 @@ class MainView(Tk):
 
         convert_text = "Convertir"
         separator_text = "▶"
-        currency_options = ["AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "GBP", "HKD", "HRK", "HUF", "IDR",
+        currency_options = ["AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "EUR", "GBP", "HKD", "HRK", "HUF", "IDR",
                             "ILS", "INR", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "RUB", "SEK",
-                            "SGD", "THB", "TRY", "ZAR", "EUR"]
-
+                            "SGD", "THB", "TRY", "USD", "ZAR"]
         currency_1 = True
         currency_2 = True
 
@@ -38,18 +37,18 @@ class MainView(Tk):
         self.grid_columnconfigure(1, minsize=self.Constants.separator_width)
 
     def __configure_UI(self):
-        self.__currency_menu = StringVar(self)
-        self.__currency_menu.set("Currency 1")
-        self.__currency_name_menu = OptionMenu(self, self.__currency_menu, *self.Constants.currency_options)
+        self.Constants.currency_1 = StringVar(self)
+        self.Constants.currency_1.set("Currency 1")
+        self.__currency_name_menu = OptionMenu(self, self.Constants.currency_1, *self.Constants.currency_options)
         self.__currency_name_menu.grid(row=0, column=0, sticky=self.Constants.left)
 
-        self.__result_menu = StringVar(self)
-        self.__result_menu.set("Currency 2")
-        self.__result_name_menu = OptionMenu(self, self.__result_menu, *self.Constants.currency_options)
+        self.Constants.currency_2 = StringVar(self)
+        self.Constants.currency_2.set("Currency 2")
+        self.__result_name_menu = OptionMenu(self, self.Constants.currency_2, *self.Constants.currency_options)
         self.__result_name_menu.grid(row=0, column=2, sticky=self.Constants.left)
 
         separator_label = Label(self)
-        separator_label.configure(text= self.Constants.separator_text)
+        separator_label.configure(text = self.Constants.separator_text)
         separator_label.grid(row=1, column=1, sticky=self.Constants.center)
 
         self.__result_label = Label(self)
@@ -73,11 +72,10 @@ class MainView(Tk):
         except ValueError:
             return
         else:
-            self.__convert_handler("USD", "MXN", ammount_to_convert)
+            self.__convert_handler(self.Constants.currency_1.get(), self.Constants.currency_2.get(), ammount_to_convert)
 
     def update_result(self, text):
         self.__result_label.configure(text=text)
-
 
     def __checkNumberOnly(self, action, value_if_allowed):
         if action != '1':
