@@ -22,7 +22,7 @@ class MainView(Tk):
         self.__options = options
 
         self.__convert_handler = convert_handler
-        self.__origin_currency = origin_currency
+        self.origin_currency = origin_currency
 
         self.title(self.Constants.title)
         self.maxsize(width=self.Constants.width, height=self.Constants.heigth)
@@ -78,7 +78,7 @@ class MainView(Tk):
 
     def __change_origin_currency(self, currency):
         self.Constants.origin_currency = currency
-        self.__origin_currency(currency)
+        self.origin_currency(currency)
 
     def __change_converted_currency(self, currency):
         self.Constants.converted_currency = currency
