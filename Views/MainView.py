@@ -1,4 +1,4 @@
-from tkinter import Tk, Label, Button, Entry, N, S, E, W
+from tkinter import Tk, Label, Button, Entry, N, S, E, W, StringVar, OptionMenu
 
 class MainView(Tk):
     class Constants:
@@ -13,6 +13,14 @@ class MainView(Tk):
 
         convert_text = "Convertir"
         separator_text = "▶"
+
+        currencies = [ "AUD", "BGN", "BRL","CAD", "CHF",
+                       "CNY", "CZK", "DKK", "GBP", "HKD",
+                       "HRK", "HUF", "IDR", "ILS", "INR",
+                       "JPY", "KRW", "MXN", "MYR", "NOK",
+                       "NZD", "PHP", "PLN", "RON", "RUB",
+                       "SEK", "SGD", "THB", "TRY", "USD", "ZAR", "EUR"]
+
 
     def __init__(self, convert_handler = None):
         super().__init__()
@@ -32,13 +40,35 @@ class MainView(Tk):
         self.grid_columnconfigure(1, minsize=self.Constants.separator_width)
 
     def __configure_UI(self):
-        currency_name_label = Label(self)
-        currency_name_label.configure(text = "USD")
-        currency_name_label.grid(row = 0, column = 0, sticky = self.Constants.left)
+        initial_currency = StringVar(self)
+        initial_currency.set("USD")
+        initial_currency_options = OptionMenu(self, initial_currency, "AUD", "BGN",
+                                              "BRL", "CAD", "CHF", "CNY", "CZK",
+                                              "DKK", "GBP", "HKD", "HRK", "HUF",
+                                              "IDR", "ILS", "INR", "JPY", "KRW",
+                                              "MXN", "MYR", "NOK", "NZD", "PHP",
+                                              "PLN", "RON", "RUB", "SEK", "SGD",
+                                              "THB", "TRY", "USD", "ZAR", "EUR")
+        initial_currency_options.grid(row = 0, column = 0, sticky = self.Constants.left)
 
-        result_name_label = Label(self)
-        result_name_label.configure(text="MXN")
-        result_name_label.grid(row=0, column=2, sticky=self.Constants.left)
+        #currency_name_label = Label(self)
+        #currency_name_label.configure(text = "USD")
+        #currency_name_label.grid(row = 0, column = 0, sticky = self.Constants.left)
+
+        result_currency = StringVar(self)
+        result_currency.set("MXN")
+        result_currency_options = OptionMenu(self, result_currency, "AUD", "BGN",
+                                              "BRL", "CAD", "CHF", "CNY", "CZK",
+                                              "DKK", "GBP", "HKD", "HRK", "HUF",
+                                              "IDR", "ILS", "INR", "JPY", "KRW",
+                                              "MXN", "MYR", "NOK", "NZD", "PHP",
+                                              "PLN", "RON", "RUB", "SEK", "SGD",
+                                              "THB", "TRY", "USD", "ZAR", "EUR")
+        result_currency_options.grid(row=0, column=2, sticky=self.Constants.left)
+
+        #result_name_label = Label(self)
+        #result_name_label.configure(text="MXN")
+        #result_name_label.grid(row=0, column=2, sticky=self.Constants.left)
 
         separator_label = Label(self)
         separator_label.configure(text= self.Constants.separator_text)
