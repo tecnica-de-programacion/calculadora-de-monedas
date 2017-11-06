@@ -1,4 +1,4 @@
-from tkinter import Tk, Label, Button, Entry, N, S, E, W
+from tkinter import Tk, Label, Button, Entry, N, S, E, W, OptionMenu
 
 class MainView(Tk):
     class Constants:
@@ -70,7 +70,6 @@ class MainView(Tk):
     def update_result(self, text):
         self.__result_label.configure(text=text)
 
-
     def __checkNumberOnly(self, action, value_if_allowed):
         if action != '1':
             return True
@@ -80,6 +79,3 @@ class MainView(Tk):
             return False
         else:
             return True
-
-
-
