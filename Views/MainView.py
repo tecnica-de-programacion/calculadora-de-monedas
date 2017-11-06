@@ -35,7 +35,7 @@ class MainView(Tk):
 
     def __configure_UI(self):
 
-        self.__names_list = ["AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "GBP", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "RUB", "SEK", "SGD", "THB" ,"TRY" ,"ZAR", "EUR"]
+        self.__names_list = ["USD","AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "GBP", "HKD", "HRK", "HUF", "IDR", "ILS", "INR", "JPY", "KRW", "MXN", "MYR", "NOK", "NZD", "PHP", "PLN", "RON", "RUB", "SEK", "SGD", "THB" ,"TRY" ,"ZAR", "EUR"]
 
         self.start_string = StringVar(self)
         self.start_string.set('Choose your starting currency')
