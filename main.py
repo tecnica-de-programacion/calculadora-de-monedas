@@ -1,10 +1,12 @@
 from Views.MainView import MainView
 from Models.CurrencyManager import CurrencyManager
+from Models.AvailableCurrenciesManager import AvailableCurrenciesManager
 
 class MainApp():
     def __init__(self):
         self.__master = MainView(convert_handler = self.__convert)
         self.__currency = CurrencyManager.get_currency("USD")
+        self.__currencies = AvailableCurrenciesManager()
 
     def run(self):
         self.__master.mainloop()
