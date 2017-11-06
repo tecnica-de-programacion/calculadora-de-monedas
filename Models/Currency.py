@@ -6,12 +6,10 @@ class Currency:
 
     @property
     def name(self):
-        return self.__name
+        return list(self.__rates.keys())
 
     def get_convertion(self, currency, ammount):
         convert_value = self.__rates.get(currency, None)
         if convert_value is None:
             return None
         return ammount * convert_value
-    def __repr__(self):
-        return'{}, {}'.format(self.__name, self.__date)
