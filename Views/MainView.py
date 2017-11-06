@@ -10,17 +10,16 @@ class MainView(Tk):
         separator_width = 50
         center = N + S + E + W
         left = W
-        right = E
         event = "<Button-1>"
-
         convert_text = "Convertir"
         separator_text = "▶"
         from_default = "USD"
         to_default = "MXN"
 
-    def __init__(self, convert_handler = None):
+    def __init__(self, convert_handler = None, get_currency_names = None):
         super().__init__()
         self.__convert_handler = convert_handler
+        self.__get_currency_names = get_currency_names
         self.title(self.Constants.title)
         self.maxsize(width=self.Constants.width, height=self.Constants.heigth)
         self.minsize(width=self.Constants.width, height=self.Constants.heigth)
@@ -36,11 +35,9 @@ class MainView(Tk):
         self.grid_columnconfigure(1, minsize=self.Constants.separator_width)
 
     def __configure_UI(self):
-        self.__from_currency_menu = MenuButton(self, 0, 0, self.Constants.from_default)
-        #self.__from_currency = from_currency_menu.currency_name()
+        self.__from_currency_menu = MenuButton(self, 0, 0, self.Constants.from_default, self.__get_currency_names)
 
-        self.__to_currency_menu = MenuButton(self, 0, 2, self.Constants.to_default)
-        #self.__to_currency = to_currency_menu.currency_name()
+        self.__to_currency_menu = MenuButton(self, 0, 2, self.Constants.to_default, self.__get_currency_names)
 
         separator_label = Label(self)
         separator_label.configure(text= self.Constants.separator_text)
@@ -67,11 +64,11 @@ class MainView(Tk):
         except ValueError:
             return
         else:
-            from_currency = self.update_currency(self.__from_currency_menu)
-            to_currency = self.update_currency(self.__to_currency_menu)
+            from_currency = self.__update_currency(self.__from_currency_menu)
+            to_currency = self.__update_currency(self.__to_currency_menu)
             self.__convert_handler(from_currency, to_currency, ammount_to_convert)
 
-    def update_currency(self, currency):
+    def __update_currency(self, currency):
         name_currency = currency.currency_name()
         return name_currency
 
