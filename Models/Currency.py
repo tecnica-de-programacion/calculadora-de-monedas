@@ -9,7 +9,6 @@ class Currency:
         return self.__name
 
     def get_convertion(self, currency, ammount):
-        print(self.__date)
         convert_value = self.__rates.get(currency, None)
         if convert_value is None:
             return None
